@@ -12,6 +12,12 @@ using System;
 
 namespace TicTacToe {
     class Player {
+        // Data Member
+        public int ID { get ; set ; }
 
+        // Virtual method to decide move
+        public virtual void decideMove(Board brd) {
+            
+        }
     }
 }

@@ -31,22 +31,22 @@ namespace TicTacToe {
             }
         }
 
+        // Method resest board
+        public void reset() {
+            for(int i = 0 ; i < MAX ; i++) {
+                gameBoard[i] = 0 ;
+            }
+        }
+
         // Method decides if move is valid
-        private bool isValid(int index) {
-            return gameBoard[index] ==EMPTY ? true : false ;
+        public bool isValid(int index) {
+            return (index >= 0 && index < MAX && gameBoard[index] == EMPTY) ? true : false ;
         }
 
         // Method comits move to gameBoard
         public void setMove(int index, int who) {
-            if(isValid(index)) {
-                gameBoard[index] = who ;
-                this.getStatus() ;
-            }
-            else {
-                Console.WriteLine("Invalid move. Try again") ;
-                int input = Int32.Parse(Console.ReadLine()) ;
-                setMove(input, who) ;
-            }
+            gameBoard[index] = who ;
+            this.getStatus() ;
         }
 
         // Method decides whether gameBoard is full or not

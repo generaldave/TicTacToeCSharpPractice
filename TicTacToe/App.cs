@@ -13,7 +13,7 @@ using System ;
 namespace TicTacToe {
     class App {
         // Method gathers user input
-        public int userInput() {
+        public static int userInput() {
             string choice ;
             Console.WriteLine("0: New Game") ;
             Console.WriteLine("1: Reset Scores") ;
@@ -27,7 +27,34 @@ namespace TicTacToe {
         static void Main(string[] args) {
             // Declare main Game object
             Game game = new Game() ;
-            game.startGame() ;
+            
+            // Declare variable for menu input
+            int choice ;
+
+            // Gather user input
+            choice = userInput() ;
+
+            // Decide what to do with user input
+            while(choice != 2) {
+                switch(choice) {
+                    case 0:
+                        game.startGame() ;
+                        break ;
+                    case 1:
+                        game.resetScores() ;
+                        break ;
+                }
+
+                // Gather user input
+                choice = userInput() ;
+            }
+
+            // Display exiting message
+            Console.WriteLine("\nThank you for playing.") ;
+            Console.WriteLine("\nPress enter to exit . . .") ;
+
+            // Pause to capture output
+            Console.ReadLine() ;
         }
     }
 }
