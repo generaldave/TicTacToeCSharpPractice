@@ -24,16 +24,21 @@ namespace TicTacToe {
         // Declare game objects
         Score  scores  = new Score()  ;
         Board  board   = new Board()  ;
-        Person person1 = new Person() ;
-        Person person2 = new Person() ;
+        Person player1 = new Person() ;
+        Person player3 = new Person() ;
+
+        // Declare turn variable
+        private int turn ;
 
         // Method starts game
-        public void startGame() {
-            // Initialize objects
-            person1.ID   = X        ;
-            person2.ID   = O        ;
-            board.status = CONTINUE ;
+        public void startGame(bool computerAI) {
+            // Initialize objects            
+            player1.ID     = X        ;
+            board.status   = CONTINUE ;
             board.reset() ;
+
+            // Set turn to X
+            turn = X ;
 
             // Play game
             while(board.status == CONTINUE) {
@@ -41,7 +46,25 @@ namespace TicTacToe {
                 Console.WriteLine(board.ToString()) ;
                 Console.WriteLine(scores.ToString()) ;
 
-                person1.decideMove(board) ;
+                if(player1.ID == turn) {
+                    player1.decideMove(board);
+                    turn = O ;
+                }
+
+                else {
+                    if(computerAI) {
+                        Computer player2 = (Computer)player3 ;
+                        player2.ID = O ;
+                        player2.decideMove(board) ;
+                    }
+                    else {
+                        Person player2 = player3 ;
+                        player2.ID = O ;
+                        player2.decideMove(board) ;
+                    }
+                    turn = X ;
+                }
+                
             }
 
             // Increment appropriate score
@@ -50,7 +73,7 @@ namespace TicTacToe {
             // Display summary
             Console.Clear() ;
             Console.WriteLine(board.ToString()) ;
-            Console.WriteLine("Game Over") ;
+            Console.WriteLine("\nGame Over") ;
             Console.WriteLine(scores.ToString()) ;
             Console.WriteLine() ;
         }

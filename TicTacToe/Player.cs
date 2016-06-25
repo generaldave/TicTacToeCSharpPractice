@@ -13,7 +13,7 @@ using System;
 namespace TicTacToe {
     class Player {
         // Data Member
-        public int ID { get ; set ; }
+        public int ID { get ; set ; }   // X or O
 
         // Virtual method to decide move
         public virtual void decideMove(Board brd) {

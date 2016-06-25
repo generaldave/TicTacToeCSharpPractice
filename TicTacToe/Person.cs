@@ -12,6 +12,7 @@ using System;
 
 namespace TicTacToe {
     class Person : Player {
+        // Method to decide move
         public override void decideMove(Board brd) {
             string choice ;
             Console.WriteLine("\nChoose move 0-8:") ;
