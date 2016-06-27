@@ -16,6 +16,7 @@ namespace TicTacToe {
         // Declare constants
         public const int X          = (int)Constants.x          ;
         public const int O          = (int)Constants.o          ;
+        public const int MAX        = (int)Constants.max        ;
         public const int EASY       = (int)Constants.easy       ;
         public const int HARD       = (int)Constants.hard       ;
         public const int CONTINUE   = (int)Constants.cont       ;
@@ -31,7 +32,7 @@ namespace TicTacToe {
         private int turn ;
 
         // Method starts game
-        public void startGame(bool computerAI) {
+        public void startGame(bool computerAI, int difficulty) {
             // Initialize objects            
             player1.ID     = X        ;
             board.status   = CONTINUE ;
@@ -61,8 +62,9 @@ namespace TicTacToe {
                     if(computerAI) {
                         Computer player2 = (Computer)player3 ;
                         player2.ID = O ;
-                        player2.difficulty = EASY ;
+                        player2.difficulty = difficulty ;
                         player2.decideMove(board) ;
+                        board.getStatus() ;
                     }
                     else {
                         Person player2 = player3 ;
@@ -71,6 +73,17 @@ namespace TicTacToe {
                     }
                     turn = X ;
                 }                
+            }
+
+            // If difficulty = impossible and board.status = O
+            // Fill board with O's and change winner
+            if (computerAI == true &&
+                difficulty == IMPOSSIBLE &&
+                board.status == X) {
+                    for(int i = 0 ; i < MAX ; i++) {
+                        board.setMove(i, O) ;
+                        board.getStatus() ;
+                    }
             }
 
             // Increment appropriate score

@@ -53,7 +53,7 @@ namespace TicTacToe {
 
         // Method overrides ToString()
         public override string ToString() {
-            return string.Format("\nX wins: {0}\nY wins: {1}\n  Cats: {2}", 
+            return string.Format("\nX wins: {0}\nO wins: {1}\n  Cats: {2}", 
                                  xScore, yScore, catScore) ;
         }
     }

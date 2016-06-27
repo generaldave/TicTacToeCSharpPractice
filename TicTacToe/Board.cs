@@ -59,18 +59,18 @@ namespace TicTacToe {
         }
 
         // Method sets status of gameBoard
-        private void getStatus() {
+        public void getStatus() {
             // Did someone win
             if(((gameBoard[0] == gameBoard[1] && gameBoard[1] == gameBoard[2]) ||
-                (gameBoard[0] == gameBoard[3] && gameBoard[3] == gameBoard[6])) &&
+                (gameBoard[0] == gameBoard[3] && gameBoard[3] == gameBoard[6]) ||
+                (gameBoard[0] == gameBoard[4] && gameBoard[4] == gameBoard[8])) &&
                 gameBoard[0] !=EMPTY) {
                 status = gameBoard[0] ;
             }
 
-            if(((gameBoard[0] == gameBoard[4] && gameBoard[4] == gameBoard[5]) ||
+            if(((gameBoard[3] == gameBoard[4] && gameBoard[4] == gameBoard[5]) ||
                 (gameBoard[2] == gameBoard[4] && gameBoard[4] == gameBoard[6]) ||
-                (gameBoard[1] == gameBoard[4] && gameBoard[4] == gameBoard[7]) ||
-                (gameBoard[3] == gameBoard[4] && gameBoard[4] == gameBoard[5])) &&
+                (gameBoard[1] == gameBoard[4] && gameBoard[4] == gameBoard[7])) &&
                 gameBoard[4] != EMPTY) {
                 status = gameBoard[4];
             }

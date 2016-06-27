@@ -12,6 +12,11 @@ using System ;
 
 namespace TicTacToe {
     class App {
+        // Declare Constants
+        public const int EASY = (int)Constants.easy ;
+        public const int HARD = (int)Constants.hard ;
+        public const int IMPOSSIBLE = (int)Constants.impossible ;
+
         // Method validates choice
         private static string validateChoice(string choice, int min, int max) {
             while(String.IsNullOrEmpty(choice) ||
@@ -33,6 +38,28 @@ namespace TicTacToe {
             return Int32.Parse(choice);
         }
 
+        // Method gathers user input for difficulty settings
+        public static int chooseDifficulty() {
+            string choice ;
+            Console.WriteLine("\n0: Easy") ;
+            Console.WriteLine("1: Hard") ;
+            Console.WriteLine("2: Impossible") ;
+            choice = Console.ReadLine() ;
+            validateChoice(choice, 0, 2) ;
+            switch(Int32.Parse(choice)) {
+                case 0:
+                    choice = EASY.ToString() ;
+                    break ;
+                case 1:
+                    choice = HARD.ToString() ;
+                    break ;
+                case 2:
+                    choice = IMPOSSIBLE.ToString() ;
+                    break ;
+            }
+            return Int32.Parse(choice) ;
+        }
+
         // Method gathers user input for main menu
         public static int mainMenu() {
             string choice ;
@@ -52,12 +79,18 @@ namespace TicTacToe {
             
             // Declare variable for menu input
             int choice ;
+            int difficulty = EASY ;
 
             // Gather user input for vs player or computer
             choice = playerOrComputer() ;
 
             // Set vs. Player or Computer
             bool computerAI = (choice == 0 ? false : true) ;
+
+            // If vs. Computer choose difficulty
+            if(computerAI) {
+                difficulty = chooseDifficulty() ;
+            }
 
             // Gather user input for main menu
             choice = mainMenu() ;
@@ -66,7 +99,7 @@ namespace TicTacToe {
             while(choice != 2) {
                 switch(choice) {
                     case 0:
-                        game.startGame(computerAI) ;
+                        game.startGame(computerAI, difficulty) ;
                         break ;
                     case 1:
                         game.resetScores() ;
