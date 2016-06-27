@@ -26,6 +26,7 @@ namespace TicTacToe {
         // Data members
         public int difficulty { get ; set ; }
         private int[] corners = new int[4] ;
+        private int[] sides   = new int[4] ;
         Random rand = new Random() ;
 
         // Constructor
@@ -34,28 +35,12 @@ namespace TicTacToe {
             corners[1] = 2 ;
             corners[2] = 6 ;
             corners[3] = 8 ;
-        }
 
-        // Method decides easy move
-        private void easyMove(Board brd, int[] avail, int size) {
-            // Declare moved boolean
-            bool moved = false ;
-
-            // try to win
-            moved = winBlock(brd, avail, size, ID);
-
-            // Try to block win
-            if(brd.status != ID && ! moved) {
-                moved = winBlock(brd, avail, size, X);
-            }
-
-            // Make random move
-            if(brd.status != ID && ! moved) {
-                int spot = rand.Next(0, size);
-                brd.setMove(avail[spot], ID);
-                moved = true ;
-            }
-        }
+            sides[0] = 1 ;
+            sides[1] = 3 ;
+            sides[2] = 5 ;
+            sides[3] = 7 ;
+        }        
 
         // Method to try to win or block win
         private bool winBlock(Board brd, int[] avail, int size, int who) {
@@ -79,6 +64,49 @@ namespace TicTacToe {
             return moved ;
         }
 
+        // Method tries center
+        private bool center(Board brd, int who) {
+            bool moved = false ;
+            if(brd.isValid(4)) {
+                brd.setMove(4, who) ;
+                moved = true ;
+            }
+            return moved ;
+        }
+
+        // Method choose random side or corner
+        private bool cornerSide(Board brd, int[] arr, int who) {
+            bool moved = false ;
+            int move = rand.Next(0, 4);
+            while(!brd.isValid(arr[move])) {
+                move = rand.Next(0, 5);
+            }
+            brd.setMove(arr[move], ID);
+            moved = true;
+            return moved ;
+        }
+
+        // Method decides easy move
+        private void easyMove(Board brd, int[] avail, int size) {
+            // Declare moved boolean
+            bool moved = false ;
+
+            // try to win
+            moved = winBlock(brd, avail, size, ID) ;
+
+            // Try to block win
+            if(!moved) {
+                moved = winBlock(brd, avail, size, X) ;
+            }
+
+            // Make random move
+            if(!moved) {
+                int spot = rand.Next(0, size) ;
+                brd.setMove(avail[spot], ID) ;
+                moved = true ;
+            }
+        }
+
         // Method decides hard move
         private void hardMove(Board brd, int[] avail, int size) {
             // Declare moved boolean
@@ -88,7 +116,7 @@ namespace TicTacToe {
             moved = winBlock(brd, avail, size, ID);
 
             // Try to block win
-            if(brd.status != ID && ! moved) {
+            if(! moved) {
                 moved = winBlock(brd, avail, size, X);
             }
 
@@ -97,18 +125,19 @@ namespace TicTacToe {
             // Try block fork
 
             // Try center
-            if (brd.status != ID &&
-                brd.isValid(4) &&
-                ! moved) {
-                brd.setMove(4, ID) ;
+            if (! moved) {
+                moved = center(brd, ID) ;                
             }
 
             // Try corner
-            if(brd.status != ID) {
-                int move = rand.Next(0, 5) ;
+            if(! moved) {
+                moved = cornerSide(brd, corners, ID) ;                
             }
 
             // Try Side
+            if(! moved) {
+                moved = cornerSide(brd, sides, ID);
+            }
         }
 
         // Method to decide move
