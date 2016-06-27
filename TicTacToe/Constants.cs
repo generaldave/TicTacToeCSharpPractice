@@ -23,7 +23,5 @@ namespace TicTacToe {
         hard,         // 7
         impossible,   // 8
         max           // 9
-    }
-
-    
+    }    
 }

@@ -42,19 +42,26 @@ namespace TicTacToe {
 
             // Play game
             while(board.status == CONTINUE) {
+                // Clear screen and show board and scores
                 Console.Clear() ;
                 Console.WriteLine(board.ToString()) ;
                 Console.WriteLine(scores.ToString()) ;
 
+                // Show who's turn it is
+                Console.WriteLine("\n{0}'s turn.", board.decideWho(turn)) ;
+
+                // Player 1's turn
                 if(player1.ID == turn) {
                     player1.decideMove(board);
                     turn = O ;
                 }
 
+                // Player 2's turn
                 else {
                     if(computerAI) {
                         Computer player2 = (Computer)player3 ;
                         player2.ID = O ;
+                        player2.difficulty = EASY ;
                         player2.decideMove(board) ;
                     }
                     else {
@@ -63,8 +70,7 @@ namespace TicTacToe {
                         player2.decideMove(board) ;
                     }
                     turn = X ;
-                }
-                
+                }                
             }
 
             // Increment appropriate score

@@ -26,9 +26,7 @@ namespace TicTacToe {
 
         // Constructor
         public Board() {
-            for(int i = 0 ; i < MAX ; i++) {
-                gameBoard[i] = 0 ;
-            }
+            reset() ;
         }
 
         // Method resest board
@@ -84,7 +82,7 @@ namespace TicTacToe {
             }
 
             // Is board full = cat
-            if(isFull()) {
+            if(isFull() && status == CONTINUE) {
                 status = FULL ;
             }
 
@@ -97,7 +95,7 @@ namespace TicTacToe {
         }
 
         // Method decides X, O, or space
-        private string decideWho(int who) {
+        public string decideWho(int who) {
             switch(who) {
                 case X:
                     return "X" ;
