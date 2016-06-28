@@ -79,7 +79,7 @@ namespace TicTacToe {
             bool moved = false ;
             int move = rand.Next(0, 4);
             while(!brd.isValid(arr[move])) {
-                move = rand.Next(0, 5);
+                move = rand.Next(0, 4);
             }
             brd.setMove(arr[move], ID);
             moved = true;
@@ -120,23 +120,31 @@ namespace TicTacToe {
                 moved = winBlock(brd, avail, size, X);
             }
 
-            // Try fork
-
             // Try block fork
+            if(! moved) {
+                if ((brd.getSpot(0) == X &&
+                    brd.getSpot(8) == X &&
+                    brd.getSpot(4) == O) ||
+                    (brd.getSpot(2) == X &&
+                    brd.getSpot(6) == X &&
+                    brd.getSpot(4) == O)) {
+                    moved = cornerSide(brd, sides, ID) ;
+                }
+            }
 
             // Try center
             if (! moved) {
-                moved = center(brd, ID) ;                
+                moved = center(brd, ID) ;
             }
 
             // Try corner
             if(! moved) {
-                moved = cornerSide(brd, corners, ID) ;                
+                moved = cornerSide(brd, corners, ID) ;
             }
 
             // Try Side
             if(! moved) {
-                moved = cornerSide(brd, sides, ID);
+                moved = cornerSide(brd, sides, ID) ;
             }
         }
 
@@ -153,13 +161,13 @@ namespace TicTacToe {
             }
 
             // Easy move
-            if (difficulty == EASY) {
+            if (difficulty == EASY ||
+                difficulty == IMPOSSIBLE) {
                 easyMove(brd, avail.ToArray(), size) ;
             }
 
             // Hard or impossible move
-            if (difficulty == HARD ||
-                difficulty == IMPOSSIBLE) {
+            if (difficulty == HARD) {
                 hardMove(brd, avail.ToArray(), size) ;
             }
         }

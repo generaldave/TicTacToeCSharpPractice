@@ -29,6 +29,11 @@ namespace TicTacToe {
             reset() ;
         }
 
+        // Method returns value in given spot
+        public int getSpot(int index) {
+            return gameBoard[index] ;
+        }
+
         // Method resest board
         public void reset() {
             for(int i = 0 ; i < MAX ; i++) {
